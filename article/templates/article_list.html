@@ -1,0 +1,10 @@
+<html>
+<head>
+</head>
+<body>
+	{% for article in articles %}
+	<!--<a href="/article/{{article.pk}}">{{article.title}}</a>-->
+		<a href="{% url 'article_detail' article.pk %}">{{article.title}}</a><!--这是使用别名来进行的(当网址发生改变后 使用别名还可以找回网页)-->
+    {%endfor%}
+</body>
+</html>
