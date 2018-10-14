@@ -36,3 +36,4 @@ def get_seven_days_read_data(content_type):
         result=read_details.aggregate(read_num_sum=Sum('readed_num'))
         read_nums.append(result['read_num_sum'] or 0)
     return dates,read_nums
+
