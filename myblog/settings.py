@@ -26,6 +26,7 @@ SECRET_KEY = '=(z%5sju12k#lafkmbahvl&ihk_95bndk8&t*pesmzgl^yd+$9'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL='user.User'
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'read_record',
     'comment',
     'likes',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'user.context_processors.login_modal_form',
             ],
         },
     },
@@ -82,7 +85,7 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db1.sqlite3'),
     }
 }
 

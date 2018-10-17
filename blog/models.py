@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from ckeditor_uploader.fields import RichTextUploadingField
 from read_record.models import ReadedNum
@@ -17,7 +17,7 @@ class Blog(models.Model,ReadNumExpandMethod):
     blog_type=models.ForeignKey(BlogType,on_delete=models.CASCADE)
     title=models.CharField(max_length=50)
     content=RichTextUploadingField()
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     created_time=models.DateTimeField(auto_now_add=True)
     readed_details=GenericRelation(ReadDetail)
     readed_num=models.IntegerField(default=0)

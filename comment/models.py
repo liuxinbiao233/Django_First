@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User
-
+from django.conf import settings
 
 # Create your models here.
 class Comment(models.Model):
@@ -12,17 +11,14 @@ class Comment(models.Model):
 
     text = models.TextField()
     comment_time = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name="comments",on_delete=models.CASCADE)#反向解析，找到所有的评论
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="comments", on_delete=models.CASCADE)
 
-    root=models.ForeignKey('self',related_name="root_comments",null=True,on_delete=models.CASCADE)
-    parent=models.ForeignKey('self',related_name="parent_comments",null=True,on_delete=models.CASCADE)
-    reply_to=models.ForeignKey(User,related_name="replies",null=True,on_delete=models.CASCADE)#反向解析，找到所相关的回复
-
-
+    root = models.ForeignKey('self', related_name='root_comment', null=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', related_name='parent_comment', null=True, on_delete=models.CASCADE)
+    reply_to = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="replies", null=True, on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.text
 
-
     class Meta:
         ordering = ['comment_time']
-
